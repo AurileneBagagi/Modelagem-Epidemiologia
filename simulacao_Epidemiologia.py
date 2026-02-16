@@ -9,14 +9,14 @@ TAMANHO_GRADE = 50
 GERACOES = 100 #Dias de simulação
 
 # Parâmetros da Doença
-TAXA_TRANSMISSAO = 0.30       # 30% de chance de infectar vizinho
+TAXA_TRANSMISSAO = 0.15      # 30% de chance de infectar vizinho
 TEMPO_BASE_DOENCA = 20        # Dias que a doença dura sem ajuda
 PROB_PERDA_IMUNIDADE = 0.01   # Chance de voltar a ser suscetível (1%)
 
 # VARIÁVEL DE INTERVENÇÃO
 # Quanto maior, mais rápido o infectado se cura.
 # Ex: 0 = Cura em 10 dias. 5 = Cura em 5 dias.
-FATOR_CAPACIDADE_HOSPITALAR = 7
+FATOR_CAPACIDADE_HOSPITALAR = 2
 
 cores = ['#4682B4', '#DC143C', "#9DF1B9"]
 mapa_cores = mcolors.ListedColormap(cores)
@@ -80,7 +80,7 @@ class AutomatoEpidemia:
 
     def executar_simulacao(self):
         fig, ax = plt.subplots()
-        ax.set_title(f'Epidemia (Hospitais: {FATOR_CAPACIDADE_HOSPITALAR})')
+        ax.set_title(f'Simulação Epidemia')
         ax.set_xticks([]); 
         ax.set_yticks([])
         
@@ -89,10 +89,16 @@ class AutomatoEpidemia:
         # Legenda
         patches = [plt.Rectangle((0,0),1,1, fc=c) for c in cores]
         rotulos = ['Suscetível', 'Infectado', 'Recuperado']
-        legend_obj = ax.legend(patches, rotulos, loc='upper left', bbox_to_anchor=(1.02, 0.95), borderaxespad=0)
+        rotulos_variaveis = ['Fator Hospitalar:\n' + str(FATOR_CAPACIDADE_HOSPITALAR), 'Taxa Transmissão:\n' + str(int(TAXA_TRANSMISSAO*100)) + '%']
+        legend_obj = ax.legend(patches, rotulos, loc='upper left', bbox_to_anchor=(1.01, 0.78), borderaxespad=0)
+        
+        # Adiciona variáveis como texto
+        texto_variaveis = '\n'.join(rotulos_variaveis)
+        ax.text(1.01, 0.99, texto_variaveis, transform=ax.transAxes, fontsize=10, verticalalignment='top')
+        
         legend_texts = legend_obj.get_texts()
         
-        leg_geracao = ax.text(1.02, 0.95, '', transform=ax.transAxes, fontsize=10, verticalalignment='bottom')
+        leg_geracao = ax.text(1.01, 0.80, '', transform=ax.transAxes, fontsize=10, verticalalignment='bottom')
         
         hist_s, hist_i, hist_r = [], [], []
 
