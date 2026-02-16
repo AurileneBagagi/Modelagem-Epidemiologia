@@ -86,7 +86,7 @@ Você pode instalar todas as dependências executando:
 
 ### Dinâmica de Transição
 
-1. **Suscetível → Infectado:** Um suscetível tem probabilidade de ser infectado proporcionalmente ao número de vizinhos infectados. A probabilidade é calculada como: $P(S \to I) = 1 - (1 - TAXA\_TRANSMISSAO)^{\#\ vizinhos\ infectados}$
+1. **Suscetível → Infectado:** Um suscetível tem probabilidade de ser infectado proporcionalmente ao número de vizinhos infectados. A probabilidade é calculada como: $P(S \to I) = 1 - (1 - TAXA\_TRANSMISSAO)$
 
 2. **Infectado → Recuperado:** Um infectado permanece neste estado por um número de dias definido por: $tempo\_cura = \max(1, TEMPO\_BASE\_DOENCA - FATOR\_CAPACIDADE\_HOSPITALAR)$. Maior capacidade hospitalar reduz o tempo de doença.
 
